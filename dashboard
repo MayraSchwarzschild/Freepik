@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso Completo de Freepik para Uso Profesional</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Mermaid JS for Diagrams -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            900: '#0c4a6e',
+                        }
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+                        'gradient-x': 'gradientX 10s ease infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        gradientX: {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Inicialización de Mermaid con tema personalizado para que coincida con la paleta
+        mermaid.initialize({ 
+            startOnLoad: true, 
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#f0f9ff',
+                primaryTextColor: '#1e293b',
+                primaryBorderColor: '#0ea5e9',
+                lineColor: '#64748b',
+                secondaryColor: '#e0f2fe',
+                tertiaryColor: '#fff',
+                fontFamily: 'Inter, sans-serif'
+            }
+        });
+    </script>
+
+    <style>
+        /* Animación suave para el acordeón */
+        .accordion-content {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .accordion-content > div {
+            overflow: hidden;
+        }
+        .accordion-item.active .accordion-content {
+            grid-template-rows: 1fr;
+        }
+        .accordion-item.active .icon-rotate {
+            transform: rotate(180deg);
+            color: #0ea5e9;
+        }
+        .accordion-item.active {
+            border-color: #bae6fd;
+            box-shadow: 0 4px 6px -1px rgba(14, 165, 233, 0.1), 0 2px 4px -1px rgba(14, 165, 233, 0.06);
+        }
+        
+        /* Personalización de la barra de desplazamiento */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f8fafc; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Estilos Markdown internos */
+        .markdown-body h3 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1.25rem;
+            color: #0f172a;
+            margin-top: 1.75rem;
+            margin-bottom: 0.75rem;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 0.5rem;
+        }
+        .markdown-body h4 {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #334155;
+            margin-top: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+        .markdown-body p { margin-bottom: 1rem; color: #475569; line-height: 1.6; }
+        .markdown-body ul { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 1rem; color: #475569; }
+        .markdown-body li { margin-bottom: 0.5rem; }
+        .markdown-body strong { color: #0f172a; }
+        .markdown-body code { background: #f1f5f9; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-size: 0.875em; color: #0284c7; }
+        .markdown-body .mermaid { display: flex; justify-content: center; margin: 2rem 0; overflow-x: auto; padding: 1rem 0;}
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen">
+
+    <!-- Barra de progreso de lectura -->
+    <div id="scroll-progress" class="fixed top-0 left-0 h-1.5 bg-brand-500 z-50 w-0 transition-all duration-150 rounded-r-full shadow-[0_0_10px_rgba(14,165,233,0.5)]"></div>
+
+    <!-- Encabezado con fondo dinámico -->
+    <header class="bg-gradient-to-r from-brand-900 via-brand-600 to-brand-900 bg-[length:200%_auto] animate-gradient-x text-white py-20 px-4 shadow-xl relative overflow-hidden">
+        <!-- Partículas de fondo sutiles -->
+        <div class="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmYiLz48L3N2Zz4=')]"></div>
+        
+        <div class="max-w-4xl mx-auto relative z-10 text-center">
+            <span class="inline-block py-1.5 px-4 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-xs font-bold tracking-widest mb-6 uppercase shadow-sm">
+                Manual Interactivo
+            </span>
+            <h1 class="font-heading text-4xl md:text-6xl font-bold mb-6 leading-tight drop-shadow-md">
+                Freepik para <span class="text-brand-100">Uso Profesional</span>
+            </h1>
+            <p class="text-slate-100 text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed drop-shadow-sm">
+                Guía definitiva sobre recursos de stock, herramientas de IA, flujos de trabajo y gestión de licencias.
+            </p>
+            
+            <button id="toggleAllBtn" class="mt-10 bg-white text-brand-900 hover:bg-brand-50 hover:scale-105 px-8 py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg flex items-center gap-3 mx-auto group">
+                <i class="ph ph-arrows-out-line-vertical text-2xl text-brand-500 group-hover:rotate-180 transition-transform duration-500"></i>
+                <span id="toggleText">Expandir todo</span>
+            </button>
+        </div>
+        
+        <!-- Curva decorativa inferior -->
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none translate-y-1/2 opacity-20">
+            <svg class="relative block w-full h-[50px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="#ffffff"></path>
+            </svg>
+        </div>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="max-w-4xl mx-auto px-4 py-16">
+        <div id="accordion-container" class="space-y-6">
+
+            <!-- Sección 1 -->
+            <div class="accordion-item opacity-0 animate-fade-in-up bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-300 hover:shadow-md" style="animation-delay: 0.1s;">
+                <button class="accordion-header group w-full px-6 py-5 flex items-center justify-between bg-white hover:bg-slate-50 transition-colors focus:outline-none text-left">
+                    <div class="flex items-center gap-5">
+                        <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-blue-100 transition-all duration-300">
+                            <i class="ph-fill ph-target text-2xl"></i>
+                        </div>
+                        <h2 class="font-heading text-xl font-semibold text-slate-800">1. Resumen Ejecutivo</h2>
+                    </div>
+                    <i class="ph ph-caret-down text-2xl text-slate-400 icon-rotate transition-transform duration-300"></i>
+                </button>
+                <div class="accordion-content">
+                    <div class="px-6 pb-8 pt-2 markdown-body">
+                        <p>Freepik se presenta como una plataforma creativa "todo en uno" que combina una biblioteca de recursos de stock (fotos, vectores, íconos, videos, audio, plantillas, mockups, tipografías y PSD) con una suite de herramientas de IA para generar, editar y organizar entregables en un mismo flujo de trabajo.</p>
+                        <p>En lo operativo, el corazón del uso profesional está en cuatro prácticas: buscar y filtrar con criterio (para mejorar relevancia y consistencia visual), organizar trabajos en Proyectos y (si corresponde) en Spaces, descargar preservando licencias/atribución, y administrar créditos/planes según el tipo de producción (stock intensivo vs generación IA intensiva).</p>
+                        <p>En lo legal, Freepik diferencia el uso gratuito (con atribución y limitaciones) de los planes pagos (sin atribución para contenido Premium, y con licencias y PDFs descargables). Además, para IA aplica políticas específicas (p. ej., contenido prohibido, respeto de marcas/derechos de terceros) y condiciones de créditos.</p>
+                        <p>En lo técnico, Freepik también expone APIs oficiales para: stock (buscar/listar/descargar), generación de imágenes, edición (incluyendo relight), generación de video e íconos, con autenticación por API key y un enfoque de integración "server-to-server".</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección 2 -->
+            <div class="accordion-item opacity-0 animate-fade-in-up bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-300 hover:shadow-md" style="animation-delay: 0.2s;">
+                <button class="accordion-header group w-full px-6 py-5 flex items-center justify-between bg-white hover:bg-slate-50 transition-colors focus:outline-none text-left">
+                    <div class="flex items-center gap-5">
+                        <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-indigo-100 transition-all duration-300">
+                            <i class="ph-fill ph-map-trifold text-2xl"></i>
+                        </div>
+                        <h2 class="font-heading text-xl font-semibold text-slate-800">2. Mapa de la Plataforma y Navegación</h2>
+                    </div>
+                    <i class="ph ph-caret-down text-2xl text-slate-400 icon-rotate transition-transform duration-300"></i>
+                </button>
+                <div class="accordion-content">
+                    <div class="px-6 pb-8 pt-2 markdown-body">
+                        <p>La navegación principal se organiza en una barra lateral (sidebar) y secciones agrupadas por "Stock" y "Herramientas" (All tools). Un punto importante: la nomenclatura y el orden pueden evolucionar, pero Freepik documenta la estructura de categorías y herramientas en su propia documentación.</p>
+                        
+                        <h3>Estructura general del menú lateral</h3>
+                        <p>En la documentación, el menú se separa conceptualmente así:</p>
+                        <p><strong>Stock</strong> (biblioteca para descargar recursos listos):</p>
+                        <ul>
+                            <li><strong>Imagen:</strong> "Todas las imágenes", Vectores, Fotos, Ilustraciones, Iconos, 3D.</li>
+                            <li><strong>Video:</strong> Videos, Plantillas de video, Motion graphics.</li>
+                            <li><strong>Audio:</strong> Efectos de sonido, Música.</li>
+                            <li><strong>Diseño:</strong> Plantillas, Mockups, Fuentes, PSD.</li>
+                        </ul>
+                        <p><strong>All tools</strong> (Suite IA y herramientas conectadas):</p>
+                        <ul>
+                            <li><strong>Imagen:</strong> Image Generator, Image Editor, Image Upscaler, Image Extender, Variations, Cinematic Shot, Assistant.</li>
+                            <li><strong>Video:</strong> Video Generator, Video Project Editor / Video Editor, Clip Editor, Video Upscaler, Lip Sync.</li>
+                            <li><strong>Audio:</strong> Voice Generator, Voice Cloning, Sound Effects Generator, Music Generator.</li>
+                            <li><strong>Otros:</strong> Spaces, Designer (Freepik Designer), Mockup Generator, Icon Generator, Background Remover, Skin Enhancer, Change Camera, Sketch to Image, AI News.</li>
+                        </ul>
+
+                        <h3>Dónde vive cada "tablero" según el flujo</h3>
+                        <ul>
+                            <li><strong>Exploración de stock:</strong> se usa el buscador principal, filtros por tipo, licencia, formato, etc.</li>
+                            <li><strong>Gestión de descargas/licencias:</strong> se centraliza en "Downloads/Descargas" dentro de Stock.</li>
+                            <li><strong>Producción con IA:</strong> cada herramienta (Image Generator, Video Generator, etc.) guarda resultados automáticamente y se integra con Proyectos/History.</li>
+                            <li><strong>Colaboración:</strong> Proyectos (orden, carpetas, comentarios) y Spaces (workflows por nodos).</li>
+                            <li><strong>Plan, facturación y equipo:</strong> "My subscription / Suscripción" y paneles de Teams/Enterprise.</li>
+                        </ul>
+
+                        <h3>Diagrama de orientación rápida</h3>
+                        <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner">
+                            <div class="mermaid">
+                            flowchart TD
+                                A[Objetivo] --> B{Recurso listo}
+                                B -- Si --> C[Buscar y filtrar Stock]
+                                C --> D[Descargar]
+                                D --> E[Guardar licencia y atribucion]
+                                B -- No --> F{Formato}
+                                F -- Imagen --> G[Herramientas de Imagen]
+                                F -- Video --> H[Herramientas de Video]
+                                F -- Audio --> I[Herramientas de Audio]
+                                G --> J[Edicion y Upscale]
+                                H --> J
+                                I --> H
+                                J --> K[Guardar en Proyectos]
+                                K --> L{Trabajo en equipo}
+                                L -- Si --> M[Spaces y Comments]
+                                L -- No --> N[Exportar y entregar]
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección 3 -->
+            <div class="accordion-item opacity-0 animate-fade-in-up bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-300 hover:shadow-md" style="animation-delay: 0.3s;">
+                <button class="accordion-header group w-full px-6 py-5 flex items-center justify-between bg-white hover:bg-slate-50 transition-colors focus:outline-none text-left">
+                    <div class="flex items-center gap-5">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-emerald-100 transition-all duration-300">
+                            <i class="ph-fill ph-books text-2xl"></i>
+                        </div>
+                        <h2 class="font-heading text-xl font-semibold text-slate-800">3. Biblioteca de Stock y Flujos</h2>
+                    </div>
+                    <i class="ph ph-caret-down text-2xl text-slate-400 icon-rotate transition-transform duration-300"></i>
+                </button>
+                <div class="accordion-content">
+                    <div class="px-6 pb-8 pt-2 markdown-body">
+                        <h3>Búsqueda, navegación y filtros</h3>
+                        <p>El flujo recomendado para stock es "buscar → filtrar → abrir recurso → validar licencia/formato → descargar → archivar licencia". Freepik ofrece una biblioteca unificada de recursos y, según las páginas de resultados, muestra filtros típicos como licencia (Free/Premium), contenido generado por IA, orientación, color, personas, tipo de archivo y opciones avanzadas (p. ej., base model, incluir prompt, editable online, etc.).</p>
+                        
+                        <div class="bg-emerald-50 border border-emerald-100 rounded-lg p-5 my-4">
+                            <h4 class="text-emerald-800 mt-0"><i class="ph-fill ph-lightbulb mr-2"></i>Buenas prácticas de búsqueda en producción</h4>
+                            <ul class="mb-0 text-emerald-900">
+                                <li>Empiece por el <strong>tipo de asset</strong> (vector vs foto vs plantilla vs motion graphics) para evitar resultados "mixtos" poco consistentes.</li>
+                                <li>Use filtros de <strong>licencia</strong> y <strong>contenido con IA</strong> desde el inicio para alinear el resultado con su política interna de uso.</li>
+                                <li>Si su entregable exige consistencia (campañas o UI kits), priorice filtros de <strong>estilo/color</strong> y, cuando aplique, "style collections" en íconos.</li>
+                            </ul>
+                        </div>
+
+                        <h3>Colecciones y guardado para reutilización</h3>
+                        <p>En el ecosistema de Freepik, la idea de "colecciones" se usa con fuerza en íconos (Flaticon), donde se permite organizar, editar y descargar íconos en lote; se mencionan límites por colección (p. ej., 256 íconos) y distintas restricciones para usuarios gratuitos vs pagos.</p>
+                        <p>En Freepik como plataforma, el guardado y organización profesional se apoya especialmente en <strong>Projects</strong> (Proyectos), donde usted puede estructurar por cliente/campaña y carpetas, y además usar comentarios.</p>
+
+                        <h3>Descargas, historial y licencias</h3>
+                        <p><strong>Dónde ver sus descargas:</strong> la documentación indica que el historial de descargas se consulta en "Downloads", entrando por la barra lateral: Stock → Downloads. Allí se ve fecha, filtro por tipo de asset y un acceso para descargar la licencia de sus descargas.</p>
+                        <p><strong>Límites de descarga en stock:</strong> Freepik distingue límites para contenido de stock (no aplica a "sus propias creaciones" de IA). En materiales oficiales, aparece como referencia frecuente "10 descargas por día" para usuarios Free o Essential, y "ilimitadas" para Premium/Premium+/Pro, con matices según planes y secciones.</p>
+                        <p><strong>Licencias Premium y PDFs:</strong> para planes Premium/Premium+/Pro se describe la disponibilidad de licencias Premium (PDF) para Freepik/Flaticon, y se recomienda descargarlas y guardarlas mientras la suscripción está activa, porque luego no se podrían volver a descargar. Además, se indica que licencias descargadas durante la vigencia del plan permanecen activas incluso cuando la suscripción expira (esto es especialmente relevante para auditorías y compliance).</p>
+
+                        <h3>Atribución y diferencias Free vs planes pagos</h3>
+                        <p>La guía de atribución describe el criterio general: para uso gratuito (o planes que lo requieran), se incluye una línea visible del tipo "Designed by Freepik" en el producto final, sea digital o físico. En cambio, el contenido Premium accesible por suscripción paga no requiere atribución, según la lógica "no attribution" explicada en la web y documentación.</p>
+
+                        <h3>Diagrama de flujo de descarga responsable</h3>
+                        <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner">
+                            <div class="mermaid">
+                            flowchart TD
+                                A[Seleccionar recurso] --> B{Tipo de Licencia}
+                                B -- Free --> C[Descargar]
+                                C --> D[Agregar atribucion]
+                                D --> E[Archivar URL y fecha]
+                                B -- Premium --> F[Descargar]
+                                F --> G[Descargar PDF de licencia]
+                                G --> H[Archivar PDF por proyecto]
+                                H --> I[Uso permitido]
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección 4 -->
+            <div class="accordion-item opacity-0 animate-fade-in-up bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-300 hover:shadow-md" style="animation-delay: 0.4s;">
+                <button class="accordion-header group w-full px-6 py-5 flex items-center justify-between bg-white hover:bg-slate-50 transition-colors focus:outline-none text-left">
+                    <div class="flex items-center gap-5">
+                        <div class="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-purple-100 transition-all duration-300">
+                            <i class="ph-fill ph-magic-wand text-2xl"></i>
+                        </div>
+                        <h2 class="font-heading text-xl font-semibold text-slate-800">4. Suite IA y Herramientas Creativas</h2>
+                    </div>
+                    <i class="ph ph-caret-down text-2xl text-slate-400 icon-rotate transition-transform duration-300"></i>
+                </button>
+                <div class="accordion-content">
+                    <div class="px-6 pb-8 pt-2 markdown-body">
+                        <h3>Principios comunes: entradas, guardado y exportación</h3>
+                        <p>En la Suite IA, "crear" y "editar" se conectan como etapas de un mismo pipeline. Freepik documenta que las creaciones se guardan automáticamente y se pueden recuperar en secciones como "Recent creations" o la pestaña "History" dentro del generador. Además, las descargas de creaciones propias (IA) no se computan como descargas de stock.</p>
+                        <p>En cuanto a formatos de salida, el generador de imágenes declara exportación en formatos estándar como JPEG y PNG. Para video y otros medios, el formato específico puede variar por herramienta; si la documentación consultada no lo explicita, se marca como <strong>"no especificado"</strong>.</p>
+
+                        <h3>Herramientas de imagen</h3>
+                        
+                        <div class="bg-gradient-to-br from-slate-50 to-slate-100 p-6 rounded-xl border border-slate-200 mb-6 shadow-sm">
+                            <div class="flex items-center gap-2 mb-3">
+                                <i class="ph-fill ph-image text-2xl text-purple-500"></i>
+                                <h4 class="m-0 text-xl">Image Generator</h4>
+                            </div>
+                            <p><strong>Propósito:</strong> generación de imágenes desde texto y/o referencias.</p>
+                            <p><strong>Entradas:</strong> prompt de texto; referencias visuales (p. ej., imagen de referencia).</p>
+                            <p><strong>Parámetros ajustables:</strong> elección de modelo; relación de aspecto; referencias (Style, Character, Object, Color).</p>
+                            <p><strong>Salida:</strong> imagen descargable (JPEG/PNG).</p>
+                            <p><strong>Límites:</strong> en el plan gratuito, se menciona un límite diario de generación.</p>
+                            <p><strong>Licencia:</strong> Freepik afirma que puede usarse con fines personales y comerciales según plan y reglas, sin infringir derechos de terceros.</p>
+                            
+                            <div class="bg-white p-4 rounded-lg mt-4 border border-slate-200">
+                                <p class="font-semibold text-slate-700 mt-0"><i class="ph-fill ph-play-circle mr-1 text-slate-400"></i> Ejemplo práctico (tarea común):</p>
+                                <ol class="list-decimal ml-5 text-sm mb-0">
+                                    <li>Abra Image Generator.</li>
+                                    <li>Defina relación de aspecto según destino.</li>
+                                    <li>Elija un modelo "Auto" si no tiene preferencia.</li>
+                                    <li>Aplique un Style (preset o custom) y una paleta de color.</li>
+                                    <li>Genere, revise, y si necesita coherencia use Character/Object (LoRA).</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <h4>Style, Composition, Objects, Characters</h4>
+                        <ul>
+                            <li><strong>Style:</strong> función para definir identidad visual consistente; permite estilos predefinidos o custom.</li>
+                            <li><strong>Composition:</strong> controla layout/estructura, permitiendo referencia por imagen, sketch o presets.</li>
+                            <li><strong>Objects (LoRAs):</strong> permite entrenar un "objeto" con fotos del producto (se mencionan 10–15 imágenes) para insertarlo consistentemente.</li>
+                            <li><strong>Characters:</strong> referencia para consistencia, con entrenamiento tipo LoRA.</li>
+                        </ul>
+
+                        <h4>Otras Herramientas de Imagen</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+                            <div class="border border-slate-200 p-5 rounded-xl bg-white hover:shadow-md transition-shadow">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <i class="ph-fill ph-pencil-line text-xl text-purple-600"></i>
+                                    <strong class="text-purple-700">Sketch to Image</strong>
+                                </div>
+                                <p class="text-sm mb-0">Dibujo en tiempo real combinado con descripción. Salida: imagen o "screen recording". Planes superiores tienen uso ilimitado.</p>
+                            </div>
+                            <div class="border border-slate-200 p-5 rounded-xl bg-white hover:shadow-md transition-shadow">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <i class="ph-fill ph-camera-rotate text-xl text-purple-600"></i>
+                                    <strong class="text-purple-700">Change Camera</strong>
+                                </div>
+                                <p class="text-sm mb-0">Genera nuevos ángulos/perspectivas (rotar, inclinar, zoom) desde una imagen base. Consume créditos por uso.</p>
+                            </div>
+                            <div class="border border-slate-200 p-5 rounded-xl bg-white md:col-span-2 hover:shadow-md transition-shadow">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <i class="ph-fill ph-sliders-horizontal text-xl text-purple-600"></i>
+                                    <strong class="text-purple-700">Herramientas de Post-producción</strong>
+                                </div>
+                                <p class="text-sm mb-0"><strong>Reimagine</strong> (variaciones desde imagen), <strong>Upscaler</strong> (modos Creative y Precision, Magnific hasta 8K), <strong>Background Remover/Replace</strong>, <strong>Retouch/Erase/Resize</strong>, y <strong>Variations/Cinematic Shot</strong>. Todas suelen consumir créditos por solicitud o imagen.</p>
+                            </div>
+                        </div>
+
+                        <h3>Herramientas de video</h3>
+                        
+                        <h4>Video Generator y modelos</h4>
+                        <p>Genera video desde prompt o referencias. Freepik menciona acceso a "30+" modelos (Google Veo, Kling, etc.). Se ajusta duración, resolución, ratio y a veces audio/seed. Los costos varían por modelo, resolución y segundos.</p>
+                        <p><em>Regla profesional:</em> defina primero resolución/duración del entregable; luego seleccione modelo por necesidad (audio nativo, realismo, etc.) y estime créditos.</p>
+
+                        <h4>Clip Editor y Lip Sync</h4>
+                        <p><strong>Clip Editor:</strong> editar videos con funciones IA (modificar con prompt, extender, upscalear, trim, LUTs). Usa modelos como Runway Aleph o Decart LucyEdit.</p>
+                        <p><strong>Lip Sync:</strong> sincronizar movimientos de boca con un audio (grabado o generado). Ideal para animaciones y tutoriales. Posee costos por segundo.</p>
+                        
+                        <h4>Video Editor y Upscaler</h4>
+                        <p>El <strong>Video Editor</strong> ofrece una timeline clásica en línea. El <strong>Video Upscaler</strong> (incluyendo Magnific) mejora calidad hasta 4K, reduce ruido y puede subir FPS hasta 60, con opciones Creative o Precision.</p>
+
+                        <h3>Herramientas de audio y diseño</h3>
+                        <p>Freepik incluye <strong>Voice Generator, Voice Cloning, Sound Effects</strong> y <strong>Music</strong>. Las salidas (generalmente MP3) se usan como insumo para videos. En cuanto al <strong>Freepik Designer</strong>, ofrece auto-save, carpetas, version history, y herramientas como AI Presentation Maker y AI Writer.</p>
+
+                        <h3>3D Generator</h3>
+                        <p>Convierte imágenes (hasta 4 ángulos) en modelos 3D texturizados. Permite elegir modelos como Tripo o Trellis 2. La salida es un archivo GLB integrable en "3D Scenes".</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección 5 -->
+            <div class="accordion-item opacity-0 animate-fade-in-up bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-300 hover:shadow-md" style="animation-delay: 0.5s;">
+                <button class="accordion-header group w-full px-6 py-5 flex items-center justify-between bg-white hover:bg-slate-50 transition-colors focus:outline-none text-left">
+                    <div class="flex items-center gap-5">
+                        <div class="w-12 h-12 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-orange-100 transition-all duration-300">
+                            <i class="ph-fill ph-wallet text-2xl"></i>
+                        </div>
+                        <h2 class="font-heading text-xl font-semibold text-slate-800">5. Gestión, Planes y Equipos</h2>
+                    </div>
+                    <i class="ph ph-caret-down text-2xl text-slate-400 icon-rotate transition-transform duration-300"></i>
+                </button>
+                <div class="accordion-content">
+                    <div class="px-6 pb-8 pt-2 markdown-body">
+                        <h3>Planes, créditos y "unlimited"</h3>
+                        <p>Freepik describe planes desde Free/Essential hasta Premium/Premium+/Pro, además de Teams y Enterprise. Sobre "unlimited": en ciertas herramientas hay generaciones ilimitadas, pero conviene leer las condiciones (no siempre aplica a cualquier modelo/modo de máxima calidad sin costo).</p>
+
+                        <h3>Cómo funcionan los créditos</h3>
+                        <p>Son la moneda para IA (no para descargas de stock). Se reinician por ciclo y normalmente no se acumulan. Existen "plan credits", "roll-over credits" y "extra credits". La compra de créditos extra está atada a planes superiores y expira a los 3 años (requiere suscripción activa).</p>
+
+                        <h3>Facturación, licencias e historial</h3>
+                        <p>Criterio clave: todo recurso Premium debe tener su PDF archivado, descargado <strong>durante la vigencia</strong> del plan. Para productos físicos, existe una "Merchandise License" (exclusiva Pro, tope 100.000 unidades, excluye IA).</p>
+
+                        <h3>Teams y Enterprise</h3>
+                        <ul>
+                            <li><strong>Teams:</strong> El administrador gestiona asientos (seats). No se pueden quitar asientos ni hay reembolsos. El owner no puede transferir su asiento.</li>
+                            <li><strong>Enterprise:</strong> Integraciones corporativas avanzadas, incluyendo configuración SAML SSO para proveedores como Okta y Microsoft.</li>
+                        </ul>
+
+                        <h3>Projects y Spaces</h3>
+                        <p>Freepik recomienda estructurar <strong>Proyectos</strong> por cliente/campaña, fijar proyectos frecuentes y usar convenciones de nombres. Los comentarios aplican a áreas de imagen o timestamps de video.</p>
+                        <p><strong>Spaces:</strong> workspace visual basado en nodos para automatizar flujos IA (p.ej. texto a voz, voz a video). Soporta colaboración. El plan Free limita a 3 Spaces.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección 6 -->
+            <div class="accordion-item opacity-0 animate-fade-in-up bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-300 hover:shadow-md" style="animation-delay: 0.6s;">
+                <button class="accordion-header group w-full px-6 py-5 flex items-center justify-between bg-white hover:bg-slate-50 transition-colors focus:outline-none text-left">
+                    <div class="flex items-center gap-5">
+                        <div class="w-12 h-12 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-teal-100 transition-all duration-300">
+                            <i class="ph-fill ph-plugs-connected text-2xl"></i>
+                        </div>
+                        <h2 class="font-heading text-xl font-semibold text-slate-800">6. Integraciones, API y Prácticas</h2>
+                    </div>
+                    <i class="ph ph-caret-down text-2xl text-slate-400 icon-rotate transition-transform duration-300"></i>
+                </button>
+                <div class="accordion-content">
+                    <div class="px-6 pb-8 pt-2 markdown-body">
+                        <h3>Integración con software externo</h3>
+                        <ul>
+                            <li><strong>Adobe:</strong> El plugin Mockup Baker ya no está en uso; se recomienda el Mockup Generator web interno de Freepik.</li>
+                            <li><strong>Figma:</strong> Existe un plugin documentado para generar imágenes directo en Figma.</li>
+                            <li><strong>Canva:</strong> No hay integración directa, el flujo es descargar y subir (o aprovechar el import nativo de Canva para PSD/AI).</li>
+                        </ul>
+
+                        <h3>APIs disponibles y cómo se usan</h3>
+                        <p>Freepik expone APIs oficiales (server-to-server) con autenticación via header <code>x-freepik-api-key</code>:</p>
+                        <div class="grid grid-cols-2 gap-3 mb-6">
+                            <div class="bg-slate-100 p-3 rounded-lg text-sm font-mono border border-slate-200 flex items-center gap-2">
+                                <i class="ph-fill ph-code text-teal-600"></i> Stock content API
+                            </div>
+                            <div class="bg-slate-100 p-3 rounded-lg text-sm font-mono border border-slate-200 flex items-center gap-2">
+                                <i class="ph-fill ph-code text-teal-600"></i> AI Image Generation API
+                            </div>
+                            <div class="bg-slate-100 p-3 rounded-lg text-sm font-mono border border-slate-200 flex items-center gap-2">
+                                <i class="ph-fill ph-code text-teal-600"></i> Image editing API (Relight)
+                            </div>
+                            <div class="bg-slate-100 p-3 rounded-lg text-sm font-mono border border-slate-200 flex items-center gap-2">
+                                <i class="ph-fill ph-code text-teal-600"></i> Video / Icon generation API
+                            </div>
+                        </div>
+                        <p>Ideal para estudios que requieren trazabilidad, estandarización de prompts y mantenimiento automático de metadatos/licencias.</p>
+
+                        <h3>Políticas de uso y compliance</h3>
+                        <p>Se prohíbe la automatización de descargas. Para IA, existen guías estrictas de contenido para evitar bloqueos. Freepik declara que las creaciones son privadas por defecto y no entrena sus modelos (ni de terceros) con los inputs/outputs de los usuarios.</p>
+
+                        <h3>Mejores prácticas profesionales</h3>
+                        <ul class="mb-6 space-y-3 list-none ml-0">
+                            <li class="flex items-start gap-3">
+                                <i class="ph-fill ph-check-circle text-teal-500 text-xl mt-0.5"></i>
+                                <div><strong>Defina destino:</strong> Aspect ratio, resolución y audio antes de gastar créditos.</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="ph-fill ph-check-circle text-teal-500 text-xl mt-0.5"></i>
+                                <div><strong>Use referencias:</strong> Style/Composition para look & feel; Object/Character para consistencia.</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="ph-fill ph-check-circle text-teal-500 text-xl mt-0.5"></i>
+                                <div><strong>Archive licencias:</strong> Guarde los PDFs en carpetas por proyecto <em>antes</em> de que expire el plan.</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="ph-fill ph-check-circle text-teal-500 text-xl mt-0.5"></i>
+                                <div><strong>Separación:</strong> Trate el stock como material licenciado y la IA bajo normativas de Propiedad Intelectual.</div>
+                            </li>
+                        </ul>
+
+                        <div class="bg-amber-50 border-l-4 border-amber-400 p-5 rounded-r-lg mt-6">
+                            <h4 class="text-amber-800 mt-0 mb-3"><i class="ph-fill ph-warning-circle mr-2"></i>Problemas comunes y soluciones</h4>
+                            <div class="space-y-3 text-sm text-amber-900">
+                                <p><strong>Bloqueos 2FA:</strong> Suelen saltar por cambios de IP (ojo con las VPN) o intentos múltiples. Límite de "máximo 3 dispositivos".</p>
+                                <p><strong>Falta de créditos:</strong> Priorizar modelos "unlimited" si aplica. Comprar extra credits requiere planes Premium+/Pro.</p>
+                                <p><strong>Licencias perdidas:</strong> Si expira el plan, no se pueden descargar PDFs retroactivos. Guardar al instante.</p>
+                                <p><strong>Lip sync fallido:</strong> Requiere audio limpio y video con el rostro bien visible.</p>
+                            </div>
+                        </div>
+
+                        <h3 class="mt-8">Comparativa de ecosistema</h3>
+                        <p>Freepik se destaca por ser <strong>"Todo en uno"</strong>. Si sólo buscás stock puro, plataformas como Shutterstock o Adobe Stock son la ruta tradicional. Si buscás especialización aislada: Midjourney (imagen), Runway (video) o ElevenLabs (audio). Freepik consolida todo bajo una misma interfaz, ideal para agencias de alto volumen.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección 7 -->
+            <div class="accordion-item opacity-0 animate-fade-in-up bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-300 hover:shadow-md" style="animation-delay: 0.7s;">
+                <button class="accordion-header group w-full px-6 py-5 flex items-center justify-between bg-white hover:bg-slate-50 transition-colors focus:outline-none text-left">
+                    <div class="flex items-center gap-5">
+                        <div class="w-12 h-12 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-rose-100 transition-all duration-300">
+                            <i class="ph-fill ph-link text-2xl"></i>
+                        </div>
+                        <h2 class="font-heading text-xl font-semibold text-slate-800">7. Fuentes Clave</h2>
+                    </div>
+                    <i class="ph ph-caret-down text-2xl text-slate-400 icon-rotate transition-transform duration-300"></i>
+                </button>
+                <div class="accordion-content">
+                    <div class="px-6 pb-8 pt-2 markdown-body">
+                        <ul class="list-none ml-0 space-y-3">
+                            <li class="flex items-center gap-2"><i class="ph ph-arrow-circle-right text-rose-400"></i> <a href="https://www.freepik.com/ai/docs" target="_blank" class="text-brand-600 hover:text-brand-800 hover:underline break-all transition-colors"><strong>Documentación AI Suite:</strong> https://www.freepik.com/ai/docs</a></li>
+                            <li class="flex items-center gap-2"><i class="ph ph-arrow-circle-right text-rose-400"></i> <a href="https://www.freepik.es/legal/terminos-de-uso" target="_blank" class="text-brand-600 hover:text-brand-800 hover:underline break-all transition-colors"><strong>Términos de uso (ES):</strong> https://www.freepik.es/legal/terminos-de-uso</a></li>
+                            <li class="flex items-center gap-2"><i class="ph ph-arrow-circle-right text-rose-400"></i> <a href="https://www.freepik.com/ai/docs/attribution-how-when-and-where" target="_blank" class="text-brand-600 hover:text-brand-800 hover:underline break-all transition-colors"><strong>Guía de atribución:</strong> https://www.freepik.com/ai/docs/attribution-how-when-and-where</a></li>
+                            <li class="flex items-center gap-2"><i class="ph ph-arrow-circle-right text-rose-400"></i> <a href="https://www.freepik.es/precios" target="_blank" class="text-brand-600 hover:text-brand-800 hover:underline break-all transition-colors"><strong>Planes y precios:</strong> https://www.freepik.es/precios</a></li>
+                            <li class="flex items-center gap-2"><i class="ph ph-arrow-circle-right text-rose-400"></i> <a href="https://www.freepik.com/ai/docs/what-are-premium-licenses" target="_blank" class="text-brand-600 hover:text-brand-800 hover:underline break-all transition-colors"><strong>Licencias Premium:</strong> https://www.freepik.com/ai/docs/what-are-premium-licenses</a></li>
+                            <li class="flex items-center gap-2"><i class="ph ph-arrow-circle-right text-rose-400"></i> <a href="https://www.freepik.es/ai/docs/how-to-download-freepik-and-flaticon-licenses" target="_blank" class="text-brand-600 hover:text-brand-800 hover:underline break-all transition-colors"><strong>Descargar licencias:</strong> https://www.freepik.es/ai/docs/how-to-download-freepik-and-flaticon-licenses</a></li>
+                            <li class="flex items-center gap-2"><i class="ph ph-arrow-circle-right text-rose-400"></i> <a href="https://www.freepik.com/legal/acceptable-use-policy" target="_blank" class="text-brand-600 hover:text-brand-800 hover:underline break-all transition-colors"><strong>Política de uso aceptable:</strong> https://www.freepik.com/legal/acceptable-use-policy</a></li>
+                            <li class="flex items-center gap-2"><i class="ph ph-arrow-circle-right text-rose-400"></i> <a href="https://docs.freepik.com/introduction" target="_blank" class="text-brand-600 hover:text-brand-800 hover:underline break-all transition-colors"><strong>Freepik API Docs:</strong> https://docs.freepik.com/introduction</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-10 text-center mt-12 border-t border-slate-800">
+        <p class="text-sm font-light tracking-wide">Generado dinámicamente. Uso Profesional e Informativo.</p>
+    </footer>
+
+    <!-- Scripts de interactividad -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const headers = document.querySelectorAll('.accordion-header');
+            const toggleAllBtn = document.getElementById('toggleAllBtn');
+            const toggleText = document.getElementById('toggleText');
+            let allExpanded = false;
+
+            // Manejo individual de cada acordeón
+            headers.forEach(header => {
+                header.addEventListener('click', () => {
+                    const item = header.parentElement;
+                    item.classList.toggle('active');
+                });
+            });
+
+            // Expandir / Colapsar todos
+            toggleAllBtn.addEventListener('click', () => {
+                const items = document.querySelectorAll('.accordion-item');
+                const icon = toggleAllBtn.querySelector('i');
+                
+                allExpanded = !allExpanded;
+                
+                items.forEach(item => {
+                    if(allExpanded) {
+                        item.classList.add('active');
+                    } else {
+                        item.classList.remove('active');
+                    }
+                });
+
+                if(allExpanded) {
+                    toggleText.textContent = 'Colapsar todo';
+                    icon.classList.remove('ph-arrows-out-line-vertical');
+                    icon.classList.add('ph-arrows-in-line-vertical');
+                } else {
+                    toggleText.textContent = 'Expandir todo';
+                    icon.classList.remove('ph-arrows-in-line-vertical');
+                    icon.classList.add('ph-arrows-out-line-vertical');
+                }
+            });
+
+            // Abrir la primera sección por defecto para invitar a la lectura
+            if(headers.length > 0) {
+                setTimeout(() => {
+                    headers[0].parentElement.classList.add('active');
+                }, 800); // Se abre después de la animación de entrada
+            }
+
+            // Lógica de la barra de progreso de lectura (Scroll tracker)
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                document.getElementById('scroll-progress').style.width = scrolled + '%';
+            });
+        });
+    </script>
+</body>
+</html>
